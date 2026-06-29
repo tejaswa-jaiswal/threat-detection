@@ -1,0 +1,28 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Model weights
+*.pt
+*.pth
+
+# Data
+data/
+error.log
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.sw?
+.DS_Store
+
+# Claude / Gemini
+.claude/
+.gemini/
