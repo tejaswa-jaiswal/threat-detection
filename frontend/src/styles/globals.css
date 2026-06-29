@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+/* =========================================================================
+ * Sentinel — Claymorphism Design Tokens
+ * Dark theme by default. Token names follow the shadcn convention so future
+ * adoption of generated shadcn components is a drop-in.
+ * ========================================================================= */
+
+@theme {
+  /* Brand palette */
+  --color-background: oklch(0.16 0.018 270);
+  --color-foreground: oklch(0.97 0.005 270);
+  --color-card: oklch(0.21 0.022 270);
+  --color-card-foreground: oklch(0.97 0.005 270);
+  --color-popover: oklch(0.23 0.022 270);
+  --color-popover-foreground: oklch(0.97 0.005 270);
+  --color-primary: oklch(0.72 0.18 285);
+  --color-primary-foreground: oklch(0.98 0.005 270);
+  --color-secondary: oklch(0.28 0.02 270);
+  --color-secondary-foreground: oklch(0.97 0.005 270);
+  --color-muted: oklch(0.26 0.018 270);
+  --color-muted-foreground: oklch(0.7 0.012 270);
+  --color-accent: oklch(0.32 0.04 285);
+  --color-accent-foreground: oklch(0.97 0.005 270);
+  --color-destructive: oklch(0.65 0.22 27);
+  --color-destructive-foreground: oklch(0.98 0.005 270);
+  --color-success: oklch(0.7 0.18 155);
+  --color-warning: oklch(0.78 0.16 75);
+  --color-border: oklch(0.34 0.022 270);
+  --color-input: oklch(0.28 0.022 270);
+  --color-ring: oklch(0.72 0.18 285);
+
+  /* Threat palette */
+  --color-threat-knife: oklch(0.72 0.18 155);
+  --color-threat-gun: oklch(0.65 0.24 27);
+  --color-threat-explosives: oklch(0.78 0.18 75);
+  --color-threat-grenade: oklch(0.72 0.2 50);
+
+  /* Chart palette (high-contrast, color-blind safer than pure RGB) */
+  --color-chart-1: oklch(0.72 0.18 285);
+  --color-chart-2: oklch(0.7 0.18 155);
+  --color-chart-3: oklch(0.78 0.18 75);
+  --color-chart-4: oklch(0.72 0.2 50);
+  --color-chart-5: oklch(0.65 0.22 27);
+
+  /* Shadows */
+  --color-shadow-dark: oklch(0.05 0.012 270);
+  --color-shadow-light: oklch(0.32 0.022 270);
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "Fira Code", monospace;
+}
+
+/* =========================================================================
+ * Base layer
+ * ========================================================================= */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body, #root {
+    height: 100%;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "ss03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth focus rings everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Custom scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+  *::-webkit-scrollbar { width: 8px; height: 8px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+}
+
+/* =========================================================================
+ * Claymorphism utilities
+ *
+ * These give the signature soft 3D look. Use sparingly — too many on one
+ * page will muddy the visual hierarchy.
+ * ========================================================================= */
+@layer utilities {
+  .clay {
+    background:
+      linear-gradient(145deg,
+        color-mix(in oklch, var(--color-card) 92%, white 8%),
+        color-mix(in oklch, var(--color-card) 96%, black 4%));
+    box-shadow:
+      10px 10px 22px var(--color-shadow-dark),
+      -10px -10px 22px var(--color-shadow-light);
+    border: 1px solid color-mix(in oklch, var(--color-border) 60%, transparent);
+  }
+
+  .clay-sm {
+    box-shadow:
+      5px 5px 12px var(--color-shadow-dark),
+      -5px -5px 12px var(--color-shadow-light);
+  }
+  .clay-md {
+    box-shadow:
+      8px 8px 18px var(--color-shadow-dark),
+      -8px -8px 18px var(--color-shadow-light);
+  }
+  .clay-lg {
+    box-shadow:
+      14px 14px 30px var(--color-shadow-dark),
+      -14px -14px 30px var(--color-shadow-light);
+  }
+
+  .clay-inset {
+    background:
+      linear-gradient(145deg,
+        color-mix(in oklch, var(--color-card) 96%, black 4%),
+        color-mix(in oklch, var(--color-card) 92%, white 8%));
+    box-shadow:
+      inset 4px 4px 10px var(--color-shadow-dark),
+      inset -4px -4px 10px var(--color-shadow-light);
+  }
+
+  .glass {
+    background: color-mix(in oklch, var(--color-card) 60%, transparent);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid color-mix(in oklch, var(--color-border) 50%, transparent);
+  }
+
+  .glow-primary {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--color-primary) 30%, transparent),
+      0 8px 32px color-mix(in oklch, var(--color-primary) 25%, transparent);
+  }
+
+  .glow-destructive {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--color-destructive) 30%, transparent),
+      0 8px 32px color-mix(in oklch, var(--color-destructive) 25%, transparent);
+  }
+
+  .glow-success {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--color-success) 30%, transparent),
+      0 8px 32px color-mix(in oklch, var(--color-success) 25%, transparent);
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  /* Reduced motion: keep opacity, drop transforms */
+  @media (prefers-reduced-motion: reduce) {
+    .clay, .clay-sm, .clay-md, .clay-lg, .glass {
+      backdrop-filter: none;
+    }
+  }
+}
+
+/* =========================================================================
+ * Recharts & markdown containers
+ * ========================================================================= */
+.recharts-cartesian-grid line {
+  stroke: var(--color-border);
+}
+.recharts-text {
+  fill: var(--color-muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 11px;
+}
+.recharts-tooltip-wrapper:focus { outline: none; }
+
+.markdown-body { line-height: 1.6; }
+.markdown-body p { margin: 0.5em 0; }
+.markdown-body code {
+  font-family: var(--font-mono);
+  background: var(--color-muted);
+  padding: 0.1em 0.35em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+}
+.markdown-body pre {
+  background: var(--color-muted);
+  padding: 0.75em 1em;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.markdown-body pre code {
+  background: transparent;
+  padding: 0;
+}
+.markdown-body ul, .markdown-body ol { padding-left: 1.4em; margin: 0.5em 0; }
+.markdown-body li { margin: 0.15em 0; }
+.markdown-body strong { color: var(--color-foreground); font-weight: 600; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--color-foreground); margin-top: 1em; margin-bottom: 0.3em; font-weight: 600; }
+.markdown-body h2 { font-size: 1.05em; }
+.markdown-body h3 { font-size: 0.95em; }
+.markdown-body a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
